@@ -1,0 +1,58 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+
+{% block custom_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'pages/styles/cart.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'pages/styles/cart_responsive.css' %}">
+{% endblock %}
+
+{% block content %}
+		<!-- Cart -->
+		<div style="margin-top:20px" class="cart_section">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="cart_container">
+							
+							<!-- Cart Bar -->
+							<div class="cart_bar">
+								<ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
+									<li class="mr-auto">Product</li>
+									<li>Price</li>
+								</ul>
+							</div>
+
+							<!-- Cart Items -->
+							<div class="cart_items">
+								<ul class="cart_items_list">
+
+									{% for book in books %}
+									<!-- Cart Item -->
+									<li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
+										<div class="product d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
+											<div><div class="product_number">{{ forloop.counter }}</div></div>
+											<div><div class="product_image"><img src="{{ book.img_src }}" alt=""></div></div>
+											<div class="product_name_container">
+												<div class="product_name"><a href="{% url 'pages:detail' book.id %}">{{ book.titulli }}, {{ book.viti }}</a></div>
+												<div class="product_text">{{ book.autori }}</div>
+											</div>
+										</div>
+										<a href="{% url 'pages:removeFromCart' book.id %}" style="margin-right: 20px;">Remove</a>
+										<div class="product_price product_text"><span>Price: </span>${{ book.cmimi }}</div>
+									</li>
+									{% endfor %}
+								</ul>
+							</div>
+							<h3 style="text-align: right;margin: 15px;"> Total: ${{ total }}</h3>
+							<!-- Cart Buttons -->
+							<div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
+								<div class="cart_buttons_inner ml-sm-auto d-flex flex-row align-items-start justify-content-start flex-wrap">
+									<div class="button button_continue trans_200"><a href="/">continue shopping</a></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+{% endblock %}
